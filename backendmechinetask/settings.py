@@ -54,8 +54,8 @@ INSTALLED_APPS = [
       'User',
       'Main',
       'corsheaders',
-      'celery'
-    #   "django_celery_results",
+      'celery',
+      "django_celery_results",
     # "django_celery_beat",
 ]
 
@@ -104,7 +104,7 @@ ROOT_URLCONF = 'backendmechinetask.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': ['Template'],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -196,3 +196,14 @@ CELERY_TRACK_STARTED = True
 CELERY_TIMEZONE = TIME_ZONE
 CELERY_BROKER_URL = 'redis://127.0.0.1:6379'
 CELERY_RESULT_BACKEND = 'django-db'
+
+
+
+
+
+EMAIL_BACKEND='django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST='smtp.gmail.com'
+EMAIL_PORT=587
+EMAIL_HOST_USER= 'shibinashiq7224@gmail.com'
+EMAIL_HOST_PASSWORD= 'cunm eepw ario zvkq'
+EMAIL_USE_TLS=True
