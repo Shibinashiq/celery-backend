@@ -18,9 +18,6 @@ class Order(models.Model):
     total_price = models.DecimalField(max_digits=10, decimal_places=2)
     status = models.CharField(max_length=50)
     created_at = models.DateTimeField(auto_now_add=True)
-    # invoice_number = models.CharField(max_length=100, unique=True)
-    # invoice_date = models.DateField()
-
     class Meta:
         verbose_name = "Order"
         verbose_name_plural = "Orders"

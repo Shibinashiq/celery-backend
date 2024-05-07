@@ -128,23 +128,28 @@ class CheckoutView(APIView):
         total_price = 0
         order_items = []
         
-        with transaction.atomic():  
-            order = Order.objects.create(user=request.user, total_price=0, status='Pending')  
+        with transaction.atomic():
+            order = Order.objects.create(user=request.user, total_price=0, status='Pending')
             for item in cart_items:
                 product_id = item['product_id']
                 quantity = item['quantity']
-                price = calculate_price(product_id, quantity)  
-                total_price += price  
+                price = calculate_price(product_id, quantity)
+                total_price += price
                 
+                # Create order item
                 order_item = OrderItem.objects.create(order=order, product_id=product_id, quantity=quantity, price_at_purchase=price)
                 order_items.append(order_item)
+                
+                # Update product quantity available in the database
+                product = Product.objects.get(pk=product_id)
+                product.quantity_available -= quantity
+                product.save()
             
             order.total_price = total_price
             order.save()
             
-            for item in cart_items:
-                product_id = item['product_id']
-                CartItem.objects.filter(product_id=product_id, user=request.user).delete()
+            # Delete cart items after successful checkout
+            CartItem.objects.filter(product_id__in=[item['product_id'] for item in cart_items], user=request.user).delete()
         
         serializer = OrderSerializer(order)
         return Response(serializer.data, status=status.HTTP_201_CREATED)
@@ -155,7 +160,6 @@ def calculate_price(product_id, quantity):
         return product.price * quantity
     except Product.DoesNotExist:
         return 0 
-    
     
     
     

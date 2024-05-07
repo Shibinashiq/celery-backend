@@ -19,59 +19,49 @@
                 <div class="u-col u-col-100" style="max-width: 320px;min-width: 500px;display: table-cell;vertical-align: top;">
                   <div style="background-color: #f7fbfc;height: 100%;width: 100% !important;border-radius: 0px;-webkit-border-radius: 0px; -moz-border-radius: 0px;">
                     <!--[if (!mso)&(!IE)]><!-->
-                    <div style="box-sizing: border-box; height: 100%; padding: 0px;border-top: 0px solid transparent;border-left: 0px solid transparent;border-right: 0px solid transparent;border-bottom: 0px solid transparent;border-radius: 0px;-webkit-border-radius: 0px; -moz-border-radius: 0px;"><!--<![endif]-->
-                      <table style="font-family:Arial, Helvetica, sans-serif;" role="presentation" cellpadding="0" cellspacing="0" width="100%" border="0">
+                    <div style="box-sizing: border-box; height: 100%; padding: 20px;border-top: 0px solid transparent;border-left: 0px solid transparent;border-right: 0px solid transparent;border-bottom: 0px solid transparent;border-radius: 0px;-webkit-border-radius: 0px; -moz-border-radius: 0px;"><!--<![endif]-->
+                      
+                      <table style="font-family:Arial, Helvetica, sans-serif;width:100%;" role="presentation" cellpadding="0" cellspacing="0" border="0">
+                        <tr>
+                          <td style="font-size: 16px; line-height: 140%; text-align: center; word-wrap: break-word;">
+                            <p style="font-size: 16px; line-height: 140%;"><span style="font-family: Montserrat, sans-serif;">Order Details</span></p>
+                          </td>
+                        </tr>
+                      </table>
+                      
+                      <table style="font-family:Arial, Helvetica, sans-serif;width:100%;" role="presentation" cellpadding="0" cellspacing="0" border="0">
                         <tbody>
+                          {% for order_item in orders %}
                           <tr>
-                            <td style="overflow-wrap:break-word;word-break:break-word;padding:40px 10px 10px;font-family:Arial, Helvetica, sans-serif;" align="left">
-                              <table width="100%" cellpadding="0" cellspacing="0" border="0">
+                            <td>
+                              <!-- Display user's order details -->
+                              <table style="font-family:Arial, Helvetica, sans-serif;width:100%;" role="presentation" cellpadding="0" cellspacing="0" border="1" bordercolor="#000000">
                                 <tr>
-                                  <td style="padding-right: 0px;padding-left: 0px;" align="center">
-                                  </td>
+                                  <td colspan="2" style="text-align: center;"><strong>User {{ order_item.order.user.username }}</strong></td>
+                                </tr>
+                                <tr>
+                                  <td><strong>Order ID</strong></td>
+                                  <td>{{ order_item.order.id }}</td>
+                                </tr>
+                                <tr>
+                                  <td><strong>Product</strong></td>
+                                  <td>{{ order_item.product.title }}</td>
+                                </tr>
+                                <tr>
+                                  <td><strong>Quantity</strong></td>
+                                  <td>{{ order_item.quantity }}</td>
+                                </tr>
+                                <tr>
+                                  <td><strong>Price</strong></td>
+                                  <td>{{ order_item.price_at_purchase }}</td>
                                 </tr>
                               </table>
                             </td>
                           </tr>
+                          {% endfor %}
                         </tbody>
                       </table>
-                      <table style="font-family:Arial, Helvetica, sans-serif;" role="presentation" cellpadding="0" cellspacing="0" width="100%" border="0">
-                        <form method="POST" action="">
-                            <!-- {% csrf_token %} -->
-                            <tbody>
-                              <tr>
-                                <td style="overflow-wrap:break-word;word-break:break-word;padding:10px;font-family:Arial, Helvetica, sans-serif;" align="left">
-                                  <div style="font-size: 14px; line-height: 140%; text-align: center; word-wrap: break-word;">
-                                  </div>
-                                  {% for order in orders %}
-                                  <h1>{{ order.total_price }}</h1>
-                                  {% endfor %}
-                                </td>
-                              </tr>
-                            </tbody>
-                          </form>
-                          
-                      </table>
-                      <table style="font-family:Arial, Helvetica, sans-serif;" role="presentation" cellpadding="0" cellspacing="0" width="100%" border="0">
-                        <tbody>
-                          <tr>
-                            <td style="overflow-wrap:break-word;word-break:break-word;padding:0px 10px 10px;font-family:Arial, Helvetica, sans-serif;" align="left">
-                              <div style="font-size: 14px; line-height: 140%; text-align: center; word-wrap: break-word;">
-                            <p style="font-size: 14px; line-height: 140%;"><span style="font-family: Montserrat, sans-serif; font-size: 14px; line-height: 19.6px;">Order Details</span></p>
-                              </div>
-                            </td>
-                          </tr>
-                        </tbody>
-                      </table>
-                      <table style="font-family:Arial, Helvetica, sans-serif;" role="presentation" cellpadding="0" cellspacing="0" width="100%" border="0">
-                        <tbody>
-                          <tr>
-                            <td style="overflow-wrap:break-word;word-break:break-word;padding:10px 10px 20px;font-family:Arial, Helvetica, sans-serif;" align="left">
-                              <div align="center">
-                              </div>
-                            </td>
-                          </tr>
-                        </tbody>
-                      </table>
+                      
                     </div>
                   </div>
                 </div>

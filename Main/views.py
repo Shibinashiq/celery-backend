@@ -1,14 +1,11 @@
-from django.http import HttpResponse
 from rest_framework import status
 from rest_framework.response import Response
 from rest_framework.views import APIView
 from .models import Product
 from .serializers import *
 from rest_framework.generics import ListAPIView
-from django.contrib.admin.views.decorators import staff_member_required
-from django.contrib.auth.decorators import login_required
 from django.http import JsonResponse
-from django.http import HttpResponse
+from .task import celery_task
 
 
 class ProductCreateAPIView(APIView):
@@ -26,18 +23,7 @@ class ProductListAPIView(ListAPIView):
     serializer_class = ProductSerializer
     
 
-    
-# def test (request):
-#     print('!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!')
-#     test_func.delay()
-#     return HttpResponse("Done")
 
-
-from django.contrib.auth.decorators import login_required
-from django.http import JsonResponse
-from .task import celery_task
-
-# @login_required
 class trigger_email_task(APIView):
     def post(self,request):
         print(request.user.email)
